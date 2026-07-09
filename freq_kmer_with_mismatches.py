@@ -15,7 +15,7 @@ def most_freq_kmer_with_mismatch():
     for kmer in kmers:
         for window in windows:
             if len([(n1, n2) for n1, n2 in zip(window,kmer) if n1 != n2])<=d: #alternative: if sum(n1 != n2 for n1, n2 in zip(window[0], pattern)) <= d:
-                store.append(kmer) #appends positions
+                store.append(kmer) #appends kmers
 
     kmer_frequencies = Counter(store)
     highest_frequency = max(kmer_frequencies.values())

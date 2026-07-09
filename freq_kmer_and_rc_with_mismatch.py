@@ -7,7 +7,7 @@ d = 3
 
 def all_kmers(k):
     kmers = []
-    for p in product('ACGT', repeat=k):
+    for p in product('ACGT', repeat=k): #generate all possible 4^k number of kmers
         kmers.append(''.join(p))
     return kmers
 
@@ -16,7 +16,8 @@ def hamming_distance(seq1, seq2):
     for i in range(len(seq1)):
         if seq1[i] != seq2[i]:
             count += 1
-    return count
+    return count #one line version -> return len([(n1, n2) for n1, n2 in zip(seq1,seq2) if n1 != n2])
+
 
 def reverse_complement(DNAStr):
     table = str.maketrans("ATGC", "TACG")
@@ -40,13 +41,13 @@ def approximate_patterns():
             if hamming_distance(kmer, genome[i:i+k]) <= d:
                 count += 1
             if hamming_distance(reverse_complement(kmer), genome[i:i+k]) <= d:
-                count += 1
+                count += 1 #add kmer and RC counts together to find most freq kmer+its RC
         if count > 0:
             for _ in range(count):
                 results.append(kmer)
     return most_frequent(results)
 
-print(" ".join(approximate_patterns()))
+print(" ".join(approximate_patterns())) #same output as unpacking the list
 
 """ NOT CORRECT: finds the most frequent kmer(s) first, then separately finds the most frequent RCs from most freq kmer(s). It never adds kmer + RC counts together
 
@@ -68,7 +69,7 @@ def most_freq_kmer_with_mismatch():
     for kmer in kmers:
         for window in windows:
             if len([(n1, n2) for n1, n2 in zip(window,kmer) if n1 != n2])<=d: #alternative: if sum(n1 != n2 for n1, n2 in zip(window[0], pattern)) <= d:
-                store.append(kmer) #appends positions
+                store.append(kmer) #appends kmers
 
     kmer_frequencies = Counter(store)
     highest_frequency = max(kmer_frequencies.values())
