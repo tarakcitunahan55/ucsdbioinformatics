@@ -11,6 +11,9 @@ clump_window_len=500
 repeat_no_clump=3
 
 def get_clump(genome, k, L, t):
+    """ Get which kmers clump together in a certain window length. 
+    However, clumping of kmers across the whole genome does not gurantee finding DNA A boxes of ori """
+    
     clump_kmers = set()
     
     # count kmers in first window

@@ -1,6 +1,6 @@
 import requests
 k = 9
-d = 1
+d = 1 #mismatches
 
 url = f"https://bioinformaticsalgorithms.com/data/Salmonella_enterica.txt"
 response = requests.get(url)
@@ -17,6 +17,7 @@ for line in response.text.splitlines():
 sequence=FASTADict[FASTALabel]
 
 def ori_finder(seq):
+    """ Find ori (with skew data) that is crucial to enable us search for most freq 9-mer and its RC - DNA A boxes"""
     skew=[0] #initial skew set to zero before we start looking at sequence
     for i in range(len(seq)): 
         if seq[i]=="C":
@@ -56,7 +57,7 @@ def suffix(pattern):
 
 
 def neighbors(pattern,d):
-    """ Recursive function """
+    """ Recursive function - gives kmers of at most d mismatches """
     if d == 0:
         return {pattern}  # wrap in set  # no mismatches allowed, only pattern itself
     if len(pattern) == 1:
@@ -83,7 +84,7 @@ def most_frequent_from_counts(counts):
 
 def approximate_patterns():
     """ 
-Find most frequent kmer(s) and its RCs within each candidate window independently
+Find most frequent kmer(s) and its RCs within each candidate ori window independently
 Collect all winners into holder
 If the same kmer wins in multiple possible ori sites, it appears once in the set (since it's a set)
 """
@@ -114,4 +115,4 @@ If the same kmer wins in multiple possible ori sites, it appears once in the set
     return holder
 
 
-print(*approximate_patterns())
+print("Possible DNA A box 9-mers:", *approximate_patterns())
