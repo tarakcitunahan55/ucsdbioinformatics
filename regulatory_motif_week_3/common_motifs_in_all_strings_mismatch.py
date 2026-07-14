@@ -1,5 +1,13 @@
-k=5
-d=2
+"""the true motif might never appear exactly in any sequence due to mutations. Instead, the algorithm enumerates all possible mutated versions of observed k-mers and tests each one.
+Enumerate all candidate motifs (neighbors of every observed k-mer).
+Test each candidate against all sequences.
+Output those that satisfy the motif definition.
+
+One flaw: we think that motif should be present in all sequences under consideration with up to d mismatches. In reality, the regulatory motif doesn't have to be present in all sequences we look for.
+Scoring motifs is a better solution
+"""
+k=5 #kmer length
+d=2 #mismatches
 sequence1="CCCGTGCAGCTAGTTTCGTGTATAA"
 sequence2="AGCGCGAAGGTCGTGAATCCGGTCG"
 sequence3="GCTGGGATAATGGGTACATGTGATA"
