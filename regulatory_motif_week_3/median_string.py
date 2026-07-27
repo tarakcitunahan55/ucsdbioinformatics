@@ -34,7 +34,8 @@ def DistanceBetweenPatternAndStrings(pattern, sequences):
     return distance #total hamming distance of all sequences
 
 def medianstring(sequences, k):
-    """Tries every possible kmer pattern of length k, finds the one with the smallest total distance to all sequences — that's the median string, the motif that best represents all sequences simultaneously"""
+    """Tries every possible kmer pattern of length k, finds the one with the smallest total distance to all sequences — that's the median string, the motif that best represents all sequences simultaneously
+    Although very accurate, very slow and impractical for large k"""
     distance = math.inf           # start with infinity, any real distance will be smaller
     for pattern in all_kmers(k):  # try every possible pattern/possible consensus strings
         if distance > DistanceBetweenPatternAndStrings(pattern, sequences):
