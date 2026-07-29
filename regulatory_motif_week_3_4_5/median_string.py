@@ -6,7 +6,7 @@ def readFile(filename):
     with open(filename, 'r') as f:
         return [l.strip() for l in f]
 
-sequences = readFile("regulatory_motif_week_3/median_string.txt")
+sequences = readFile("regulatory_motif_week_3_4_5/median_string.txt")
 
 def hamming_distance(seq1, seq2):
     return len([(n1, n2) for n1, n2 in zip(seq1,seq2) if n1 != n2])

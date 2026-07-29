@@ -82,6 +82,6 @@ def run_randomized_motif_search(dna_list, k, t, runs=1000):
     
     return best_motifs
 
-k, t, dna_list = read_file("regulatory_motif_week_3/randomized_motif_search.txt")
+k, t, dna_list = read_file("regulatory_motif_week_3_4_5/randomized_motif_search.txt")
 result = run_randomized_motif_search(dna_list, k, t, runs=1000)
 print(" ".join(result))

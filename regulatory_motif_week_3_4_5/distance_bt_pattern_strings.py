@@ -13,7 +13,7 @@ def read_file(file): # data was given on one line including the pattern we searc
 
     return pattern, dna_list
 
-pattern, sequences = read_file("regulatory_motif_week_3/distance_bt_.txt")
+pattern, sequences = read_file("regulatory_motif_week_3_4_5/distance_bt_.txt")
 
 
 def hamming_distance(seq1, seq2):

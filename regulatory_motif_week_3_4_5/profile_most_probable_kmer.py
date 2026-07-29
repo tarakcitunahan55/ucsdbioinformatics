@@ -11,7 +11,7 @@ def read_file(file):
 
     return a_list, c_list, g_list, t_list     
 
-a_list, c_list, g_list, t_list = read_file("regulatory_motif_week_3/profile_kmer.txt")
+a_list, c_list, g_list, t_list = read_file("regulatory_motif_week_3_4_5/profile_kmer.txt")
 
 def get_window(sequence,k):
     return [(sequence[pos:pos+k]) for pos in range(len(sequence)-k+1)]

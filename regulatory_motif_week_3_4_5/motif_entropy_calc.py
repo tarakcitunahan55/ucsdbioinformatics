@@ -6,7 +6,7 @@ def readFile(filename):
     with open(filename, 'r') as f:
         return [l.strip() for l in f]
 
-sequences = readFile("regulatory_motif_week_3/motif_entropy.txt")
+sequences = readFile("regulatory_motif_week_3_4_5/motif_entropy.txt")
 t=len(sequences) #number of strings
 
 counts = [Counter(position) for position in zip(*sequences)] #make a Counter dict for every position/column of sequences

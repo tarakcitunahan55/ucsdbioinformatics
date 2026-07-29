@@ -97,6 +97,6 @@ def run_gibbs_sampler(dna_list, k, t, N, runs=20):
     
     return best_motifs
 
-k, t, N, dna_list = read_file("regulatory_motif_week_3/gibbs_sampler.txt")
+k, t, N, dna_list = read_file("regulatory_motif_week_3_4_5/gibbs_sampler.txt")
 result = run_gibbs_sampler(dna_list, k, t, N, runs=20)
 print(" ".join(result))
