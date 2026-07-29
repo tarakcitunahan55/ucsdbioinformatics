@@ -6,7 +6,7 @@ def read_file(file):
         args = f.readline().rstrip().split()
     k = int(args[0])
     t = int(args[1])
-    N = int(args[2])
+    N = int(args[2]) #number of iterations per run
     dna_list = args[3:]
     return k, t, N, dna_list
 
@@ -37,7 +37,7 @@ def profile_randomly_generated_kmer(sequence, k, profile):
     total = sum(probabilities)
     probabilities = [p / total for p in probabilities]
     
-    # randomly select a kmer weighted by its probability
+    # randomly select a kmer weighted by its probability, high probability kmers chosen more often but not always
     return random.choices(kmers, weights=probabilities, k=1)[0]
 
 def score(motifs):
@@ -50,7 +50,11 @@ def score(motifs):
     return total
 
 def gibbs_sampler(dna_list, k, t, N):
-    """Single run of Gibbs sampler"""
+    """
+    Random one motif update per iteration → occasional bad moves are intentional → 
+            stopping at plateau would miss future improvements after bad moves
+            so must run fixed N to allow recovery from bad random choices"""
+    
     # randomly select one k-mer from each sequence
     motifs = [seq[random.randint(0, len(seq) - k):random.randint(0, len(seq) - k) + k]
               for seq in dna_list]
@@ -59,7 +63,7 @@ def gibbs_sampler(dna_list, k, t, N):
     
     best_motifs = motifs[:]
     
-    for j in range(N):
+    for j in range(N): #always runs exactly N times, no early stopping regardless of whether it's improving or not
         i = random.randint(0, t - 1)  # randomly select one sequence index
         
         # build profile from all motifs EXCEPT the i-th one
@@ -76,7 +80,11 @@ def gibbs_sampler(dna_list, k, t, N):
     return best_motifs
 
 def run_gibbs_sampler(dna_list, k, t, N, runs=20):
-    """Run Gibbs sampler 20 times and return best result"""
+    """Run Gibbs sampler 20 times and return best result
+
+     Profile-random selection occasionally picks suboptimal but allows escaping local optima to find global optima
+     One motif update per iteration → preserves good motifs found so far -> better than randomized search
+"""
     best_motifs = None
     best_score = float('inf')
     
